@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import ProductList from "./components/ProductList";
 import ProductFormModal from "./components/ProductFormModal";
+import ConfirmDeleteModal from "./components/ConfirmDeleteModal";
 import { initialProducts } from "./data/products";
 import "./App.css";
 
@@ -34,6 +35,11 @@ function App() {
     closeModal();
   };
 
+  const handleDeleteProduct = () => {
+    setProducts(products.filter((product) => product.id !== modal.product.id));
+    closeModal();
+  };
+
   return (
     <main className="app">
       <Header onAddClick={() => setModal({ type: "add" })} />
@@ -46,6 +52,7 @@ function App() {
       <ProductList
         products={filteredProducts}
         onEdit={(product) => setModal({ type: "edit", product })}
+        onDelete={(product) => setModal({ type: "delete", product })}
         emptyMessage={keyword ? "Produk tidak ditemukan." : "Belum ada produk."}
       />
 
@@ -62,6 +69,14 @@ function App() {
           product={modal.product}
           onClose={closeModal}
           onSubmit={handleEditProduct}
+        />
+      )}
+
+      {modal?.type === "delete" && (
+        <ConfirmDeleteModal
+          product={modal.product}
+          onClose={closeModal}
+          onConfirm={handleDeleteProduct}
         />
       )}
     </main>
