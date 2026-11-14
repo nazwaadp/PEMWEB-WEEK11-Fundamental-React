@@ -20,8 +20,13 @@ function validate({ name, price }) {
   return errors;
 }
 
-function ProductFormModal({ onClose, onSubmit }) {
-  const [form, setForm] = useState({ name: "", price: "" });
+// Kalau prop `product` ada, pop-up bekerja sebagai form Edit. Kalau tidak, form Tambah.
+function ProductFormModal({ product, onClose, onSubmit }) {
+  const isEdit = Boolean(product);
+  const [form, setForm] = useState({
+    name: product?.name ?? "",
+    price: product ? String(product.price) : "",
+  });
   const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
@@ -43,9 +48,14 @@ function ProductFormModal({ onClose, onSubmit }) {
   return (
     <Modal onClose={onClose} labelId="product-form-title">
       <h2 id="product-form-title" className="form-modal__title">
-        Tambah Produk
+        {isEdit ? "Edit Produk" : "Tambah Produk"}
       </h2>
-      <p className="form-modal__description">Masukkan informasi produk baru.</p>
+      <p className="form-modal__description">
+        {isEdit
+          ? "Perbarui informasi produk yang dipilih."
+          : "Masukkan informasi produk baru."}
+      </p>
+      {isEdit && <p className="form-modal__id">ID: {product.id}</p>}
 
       <form onSubmit={handleSubmit} noValidate>
         <div className="field">
@@ -88,7 +98,7 @@ function ProductFormModal({ onClose, onSubmit }) {
             Batal
           </button>
           <button type="submit" className="btn btn-primary">
-            Simpan Produk
+            {isEdit ? "Simpan Perubahan" : "Simpan Produk"}
           </button>
         </div>
       </form>

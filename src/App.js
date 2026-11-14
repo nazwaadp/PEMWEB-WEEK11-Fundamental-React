@@ -25,6 +25,15 @@ function App() {
     closeModal();
   };
 
+  const handleEditProduct = ({ name, price }) => {
+    setProducts(
+      products.map((product) =>
+        product.id === modal.product.id ? { ...product, name, price } : product
+      )
+    );
+    closeModal();
+  };
+
   return (
     <main className="app">
       <Header onAddClick={() => setModal({ type: "add" })} />
@@ -36,6 +45,7 @@ function App() {
 
       <ProductList
         products={filteredProducts}
+        onEdit={(product) => setModal({ type: "edit", product })}
         emptyMessage={keyword ? "Produk tidak ditemukan." : "Belum ada produk."}
       />
 
@@ -45,6 +55,14 @@ function App() {
 
       {modal?.type === "add" && (
         <ProductFormModal onClose={closeModal} onSubmit={handleAddProduct} />
+      )}
+
+      {modal?.type === "edit" && (
+        <ProductFormModal
+          product={modal.product}
+          onClose={closeModal}
+          onSubmit={handleEditProduct}
+        />
       )}
     </main>
   );

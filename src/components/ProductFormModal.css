@@ -10,6 +10,13 @@
   font-size: 14px;
 }
 
+.form-modal__id {
+  margin: -8px 0 14px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .field {
   display: flex;
   flex-direction: column;
