@@ -1,7 +1,10 @@
+import Header from "./components/Header";
+import "./App.css";
+
 function App() {
   return (
-    <main>
-      <h1>Manajemen Produk</h1>
+    <main className="app">
+      <Header />
     </main>
   );
 }
