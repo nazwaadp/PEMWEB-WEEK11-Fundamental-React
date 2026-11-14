@@ -3,3 +3,23 @@
   margin: 0 auto;
   padding: 40px 24px 56px;
 }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.toolbar__count {
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.app__footer {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
